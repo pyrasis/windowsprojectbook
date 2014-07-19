@@ -1,0 +1,36 @@
+<?python from genshi import HTML ?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/trac/example/chrome/common/css/trac.css" />
+    <title>Available Projects</title>	
+  </head>	
+
+  <body>
+
+    <img src="/trac/example/chrome/common/trac_banner.png" />
+    <p />
+
+    <table class='wiki'>
+      <tr>
+        <td class='wiki' width='100'>&nbsp;Projects</td>
+        <td class='wiki' width='800'>&nbsp;Descriptions</td>
+      </tr>
+      <tr py:for="project in projects" py:choose="">
+        <td class='wiki'>&nbsp;
+          <a py:when="'href' in project" href="$project.href" 
+            title="$project.description">$project.name</a>
+          <py:otherwise>
+            <small>$project.name: <em>Error</em> <br /> ($project.description)</small>
+          </py:otherwise>
+        </td>
+        <td class='wiki'>${HTML(project.description)}</td>
+      </tr>
+    </table>
+  </body>
+</html>
